@@ -5,7 +5,6 @@
   <body>
     <h1>Floyd-Warshall Algorithm</h1>
 
-    
     <form>
       <label for="numVertices">Number of vertices:</label><br>
       <input type="text" id="numVertices" name="numVertices"><br>
@@ -14,19 +13,16 @@
       <textarea id="adjacencyMatrix" name="adjacencyMatrix"></textarea><br>
     </form> 
 
-   
     <button onclick="floydWarshall()">Run Floyd-Warshall Algorithm</button>
 
     <script>
-     {
-        
+
+      function floydWarshall() {
         const numVertices = document.getElementById("numVertices").value;
         const adjacencyMatrixString = document.getElementById("adjacencyMatrix").value;
 
-       
         const adjMatrix = adjacencyMatrixString.split("\n").map(row => row.split(" ").map(Number));
 
-       
         let dist = [];
         for (let i = 0; i < numVertices; i++) {
           dist[i] = [];
@@ -35,7 +31,6 @@
           }
         }
 
-       
         for (let k = 0; k < numVertices; k++) {
           for (let i = 0; i < numVertices; i++) {
             for (let j = 0; j < numVertices; j++) {
@@ -46,7 +41,6 @@
           }
         }
 
-        
         console.log("The shortest distances between all pairs of vertices: ");
         for (let i = 0; i < numVertices; i++) {
           for (let j = 0; j < numVertices; j++) {
