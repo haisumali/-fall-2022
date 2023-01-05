@@ -1,79 +1,59 @@
-<!DOCTYPE html>
 <html>
-<body>
-<div>
-<script>
-  var V = 4; 
- 
-      
-      function transitiveClosure(graph) {
-       
-        var reach = Array.from(Array(V), () => new Array(V));
-        var i, j, k;
- 
+  <head>
+    <title>Floyd-Warshall Algorithm</title>
+  </head>
+  <body>
+    <h1>Floyd-Warshall Algorithm</h1>
+
     
-        for (i = 0; i < V; i++)
-          for (j = 0; j < V; j++) reach[i][j] = graph[i][j];
- 
- 
-        for (k = 0; k < V; k++) {
+    <form>
+      <label for="numVertices">Number of vertices:</label><br>
+      <input type="text" id="numVertices" name="numVertices"><br>
+      <br>
+      <label for="adjacencyMatrix">Adjacency matrix:</label><br>
+      <textarea id="adjacencyMatrix" name="adjacencyMatrix"></textarea><br>
+    </form> 
+
    
-          for (i = 0; i < V; i++) {
-      
-            for (j = 0; j < V; j++) {
-             
-              reach[i][j] =
-                reach[i][j] != 0 || (reach[i][k] != 0 && reach[k][j] != 0)
-                  ? 1
-                  : 0;
+    <button onclick="floydWarshall()">Run Floyd-Warshall Algorithm</button>
+
+    <script>
+     {
+        
+        const numVertices = document.getElementById("numVertices").value;
+        const adjacencyMatrixString = document.getElementById("adjacencyMatrix").value;
+
+       
+        const adjMatrix = adjacencyMatrixString.split("\n").map(row => row.split(" ").map(Number));
+
+       
+        let dist = [];
+        for (let i = 0; i < numVertices; i++) {
+          dist[i] = [];
+          for (let j = 0; j < numVertices; j++) {
+            dist[i][j] = adjMatrix[i][j];
+          }
+        }
+
+       
+        for (let k = 0; k < numVertices; k++) {
+          for (let i = 0; i < numVertices; i++) {
+            for (let j = 0; j < numVertices; j++) {
+              if (dist[i][k] + dist[k][j] < dist[i][j]) {
+                dist[i][j] = dist[i][k] + dist[k][j];
+              }
             }
           }
         }
- 
- 
-        printSolution(reach);
-      }
- 
 
-      function printSolution(reach) {
-        document.write(
-
-        );
-        for (var i = 0; i < V; i++) {
-          for (var j = 0; j < V; j++) {
-            if (i == j) document.write("1 ");
-            else document.write(reach[i][j] + " ");
+        
+        console.log("The shortest distances between all pairs of vertices: ");
+        for (let i = 0; i < numVertices; i++) {
+          for (let j = 0; j < numVertices; j++) {
+            console.log(i + " to " + j + ": " + dist[i][j]);
           }
-          document.write("<br>");
         }
       }
- 
-     
-          
-      var graph = [
-        [1, 1, 0, 1],
-        [0, 1, 1, 0],
-        [0, 0, 1, 1],
-        [0, 0, 0, 1],
-      ];
- 
-  
- 
-      transitiveClosure(graph);
-      
-      haisum ali 10959 assigment Transitive closure
-      
-      console.log("discrete math assigment");
-
-const mySet= new Set();
-console.log('the transitve closure looks like:' ,mySet)
-mySet.add(1,1,1,1)
-mySet.add(0,1,1,1)
-mySet.add(0,0,1,1)
-mySet.add(0,0,0,1)
-
-console.log('the transitve closure looks like:' ,mySet)
-</div>
-</script>
-</body>
+    </script>
+  </body>
 </html>
